@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clément Allard — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F172A;
+      --bg-card: #1E293B;
+      --bg-card-hover: #263348;
+      --accent: #3B82F6;
+      --accent-glow: rgba(59,130,246,0.15);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: #334155;
+      --radius: 12px;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* Language switch */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-title {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 560px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .hero-socials {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      justify-content: center;
+    }
+
+    .hero-socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .hero-socials a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0.75rem 0 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    #about p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    #about p strong { color: var(--text); }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg-card); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .project-context {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .project-badge {
+      background: rgba(234,179,8,0.15);
+      border: 1px solid rgba(234,179,8,0.3);
+      color: #EAB308;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+
+    .project-tag {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .tag-python { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.2); }
+    .tag-java { background: rgba(249,115,22,0.15); color: #FB923C; border: 1px solid rgba(249,115,22,0.2); }
+    .tag-kotlin { background: rgba(168,85,247,0.15); color: #C084FC; border: 1px solid rgba(168,85,247,0.2); }
+    .tag-cpp { background: rgba(20,184,166,0.15); color: #2DD4BF; border: 1px solid rgba(20,184,166,0.2); }
+    .tag-docker { background: rgba(14,165,233,0.15); color: #38BDF8; border: 1px solid rgba(14,165,233,0.2); }
+    .tag-ml { background: rgba(236,72,153,0.15); color: #F472B6; border: 1px solid rgba(236,72,153,0.2); }
+    .tag-cicd { background: rgba(132,204,22,0.15); color: #A3E635; border: 1px solid rgba(132,204,22,0.2); }
+
+    .project-link {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-card); text-align: center; }
+
+    #contact .section-title { margin-bottom: 1rem; }
+
+    #contact p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── HIDDEN LANG ── */
+    [data-lang] { display: none; }
+    .lang-fr [data-lang="fr"],
+    .lang-en [data-lang="en"] { display: block; }
+
+    .lang-fr .inline-fr,
+    .lang-en .inline-en { display: inline; }
+    .inline-fr, .inline-en { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      #about .about-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body class="lang-fr">
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <a href="#hero" class="nav-logo">C<span>.</span>Allard</a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav-about"></a></li>
+    <li><a href="#skills" data-i18n="nav-skills"></a></li>
+    <li><a href="#projects" data-i18n="nav-projects"></a></li>
+    <li><a href="#contact" data-i18n="nav-contact"></a></li>
+  </ul>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-tag" data-i18n="hero-tag"></div>
+  <h1 class="hero-name">Clément <span>Allard</span></h1>
+  <p class="hero-title" data-i18n="hero-subtitle"></p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-primary" data-i18n="hero-cta-projects"></a>
+    <a href="#contact" class="btn-secondary" data-i18n="hero-cta-contact"></a>
+  </div>
+  <div class="hero-socials">
+    <a href="https://github.com/ClementAllard" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/cl%C3%A9ment-allard-988b6b35a/" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="mailto:clementallard1@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      Email
+    </a>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="section-label" data-i18n="about-label"></div>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div>
+        <div data-lang="fr">
+          <p>Jeune diplômé d'un <strong>Master en Sciences Informatiques</strong> à l'Université de Mons (UMONS), je suis à la recherche de mon premier poste en développement <strong>backend, fullstack ou mobile</strong>.</p>
+          <p>Mon parcours académique m'a permis de travailler sur des projets variés allant du développement d'applications Java et Android au déploiement cloud en passant par la recherche en apprentissage par renforcement avec garanties formelles.</p>
+          <p>Rigoureux et autonome, j'aime autant travailler seul que collaborer en équipe sur des projets ambitieux.</p>
+        </div>
+        <div data-lang="en">
+          <p>Recent <strong>Master's graduate in Computer Science</strong> from the Université de Mons (UMONS), Belgium, looking for a first position in <strong>backend, fullstack or mobile</strong> development.</p>
+          <p>My academic journey covered a wide range of projects: Java and Android application development, cloud deployment, and research in reinforcement learning with formal guarantees.</p>
+          <p>Rigorous and autonomous, I enjoy working independently as much as collaborating in a team on ambitious projects.</p>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">6</div>
+          <div class="stat-label" data-i18n="stat-projects"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label" data-i18n="stat-years"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">★</div>
+          <div class="stat-label" data-i18n="stat-award"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">68</div>
+          <div class="stat-label" data-i18n="stat-thesis"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label" data-i18n="skills-label"></div>
+    <div class="section-title" data-i18n="skills-title"></div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title" data-i18n="skill-languages"></div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Kotlin</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-i18n="skill-web"></div>
+        <div class="skill-tags">
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-i18n="skill-mobile"></div>
+        <div class="skill-tags">
+          <span class="skill-tag">Android</span>
+          <span class="skill-tag">Kotlin</span>
+          <span class="skill-tag">Android Studio</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Docker Compose</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">CI/CD</span>
+          <span class="skill-tag">Gradle</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Machine Learning</div>
+        <div class="skill-tags">
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">Gymnasium</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" data-i18n="skill-concepts"></div>
+        <div class="skill-tags">
+          <span class="skill-tag" data-i18n="concept-rl"></span>
+          <span class="skill-tag" data-i18n="concept-tests"></span>
+          <span class="skill-tag" data-i18n="concept-review"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label" data-i18n="projects-label"></div>
+    <div class="section-title" data-i18n="projects-title"></div>
+    <div class="projects-grid">
+
+      <!-- Mémoire -->
+      <a href="https://github.com/ClementAllard/Memoire-RL-avec-garanties" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context" data-i18n="proj-thesis-context"></div>
+            <div class="project-name" data-i18n="proj-thesis-name"></div>
+          </div>
+        </div>
+        <p class="project-desc" data-i18n="proj-thesis-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-cpp">C++</span>
+          <span class="project-tag tag-python">Python</span>
+          <span class="project-tag tag-python">PRISM</span>
+        </div>
+        <span class="project-link">GitHub →</span>
+      </a>
+
+      <!-- Quoridor -->
+      <a href="https://github.com/ClementAllard/Quoridor" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context" data-i18n="proj-quoridor-context"></div>
+            <div class="project-name">Quoridor</div>
+          </div>
+          <span class="project-badge" data-i18n="proj-quoridor-badge"></span>
+        </div>
+        <p class="project-desc" data-i18n="proj-quoridor-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-java">Java</span>
+          <span class="project-tag tag-java">Gradle</span>
+          <span class="project-tag tag-python">Python</span>
+        </div>
+        <span class="project-link">GitHub →</span>
+      </a>
+
+      <!-- Cloud Computing -->
+      <a href="https://github.com/ClementAllard/Image-Search-Service" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context">Cloud & Edge Computing</div>
+            <div class="project-name" data-i18n="proj-cloud-name"></div>
+          </div>
+        </div>
+        <p class="project-desc" data-i18n="proj-cloud-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-python">Python</span>
+          <span class="project-tag tag-python">Flask</span>
+          <span class="project-tag tag-docker">Docker</span>
+          <span class="project-tag tag-ml">PyTorch</span>
+        </div>
+        <span class="project-link">GitHub →</span>
+      </a>
+
+      <!-- Calculator -->
+      <a href="https://youtu.be/r4HIXyyzpbQ" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context" data-i18n="proj-calc-context"></div>
+            <div class="project-name">Calculator — Software Evolution</div>
+          </div>
+        </div>
+        <p class="project-desc" data-i18n="proj-calc-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-java">Java</span>
+          <span class="project-tag tag-cicd">GitHub Actions</span>
+          <span class="project-tag tag-cicd">CI/CD</span>
+        </div>
+        <span class="project-link" data-i18n="proj-calc-link"></span>
+      </a>
+
+      <!-- Actor-Critic -->
+      <a href="https://github.com/ClementAllard/Actor-Critic-RL" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context">Advanced Machine Learning</div>
+            <div class="project-name">Actor-Critic RL</div>
+          </div>
+        </div>
+        <p class="project-desc" data-i18n="proj-ml-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-python">Python</span>
+          <span class="project-tag tag-ml">TensorFlow</span>
+          <span class="project-tag tag-ml">Gymnasium</span>
+        </div>
+        <span class="project-link">GitHub →</span>
+      </a>
+
+      <!-- Application Mobile de Commandes -->
+      <a href="https://github.com/ClementAllard/Commandes-App" target="_blank" class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-context" data-i18n="proj-app-context"></div>
+            <div class="project-name">Application Mobile de Commandes</div>
+          </div>
+        </div>
+        <p class="project-desc" data-i18n="proj-app-desc"></p>
+        <div class="project-tags">
+          <span class="project-tag tag-kotlin">Kotlin</span>
+          <span class="project-tag tag-kotlin">Android</span>
+        </div>
+        <span class="project-link">GitHub →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label" data-i18n="contact-label"></div>
+    <div class="section-title" data-i18n="contact-title"></div>
+    <p data-i18n="contact-desc"></p>
+    <div class="contact-links">
+      <a href="mailto:clementallard1@gmail.com" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        clementallard1@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/cl%C3%A9ment-allard-988b6b35a/" target="_blank" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/ClementAllard" target="_blank" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="inline-fr">Fait avec ♥ par Clément Allard</span>
+  <span class="inline-en">Made with ♥ by Clément Allard</span>
+</footer>
+
+<script>
+  const i18n = {
+    fr: {
+      "nav-about": "À propos",
+      "nav-skills": "Compétences",
+      "nav-projects": "Projets",
+      "nav-contact": "Contact",
+      "hero-tag": "Développeur Junior · Belgique",
+      "hero-subtitle": "Backend · Fullstack · Mobile — Diplômé d'un Master en Sciences Informatiques à l'UMONS",
+      "hero-cta-projects": "Voir mes projets",
+      "hero-cta-contact": "Me contacter",
+      "about-label": "À propos",
+      "stat-projects": "Projets",
+      "stat-years": "Années d'études",
+      "stat-award": "Meilleur projet Bac 1",
+      "stat-thesis": "Pages de mémoire",
+      "skills-label": "Compétences",
+      "skills-title": "Stack technique",
+      "skill-languages": "Langages",
+      "skill-web": "Web & Backend",
+      "skill-mobile": "Mobile",
+      "skill-concepts": "Concepts",
+      "concept-rl": "Apprentissage par renforcement",
+      "concept-tests": "Tests unitaires",
+      "concept-review": "Code review",
+      "projects-label": "Projets",
+      "projects-title": "Ce que j'ai construit",
+      "proj-thesis-context": "Recherche · Master",
+      "proj-thesis-name": "RL avec Garanties Formelles",
+      "proj-thesis-desc": "Mémoire de Master : traduction de spécifications LTL en reward machines pour guider des agents RL. Extension de l'outil Mungojerrie (C++) avec Counterfactual Q-Learning et simulation contrefactuelle.",
+      "proj-quoridor-context": "Bac 1 · Java",
+      "proj-quoridor-badge": "★ Meilleur projet",
+      "proj-quoridor-desc": "Implémentation complète du jeu Quoridor : interface graphique avec textures faites main, IA multi-niveaux, sauvegarde de parties, maps et sorts additionnels.",
+      "proj-cloud-name": "Image Search Service",
+      "proj-cloud-desc": "Moteur de recherche d'images par similarité déployé en SaaS sur VM Cloud. Modèles deep learning (VGG16, ResNet50, ViT, EfficientNet), conteneurisé avec Docker.",
+      "proj-calc-context": "Génie Logiciel · Équipe de 4",
+      "proj-calc-desc": "Évolution collaborative d'un calculateur existant : CI/CD, tests unitaires, code coverage, GitHub Actions, analyse statique, code review et pull requests.",
+      "proj-calc-link": "Voir la démo YouTube →",
+      "proj-ml-desc": "Agent deep RL Actor-Critic entraîné sur Acrobot-v1 avec grid search sur les hyperparamètres. Comparé à un agent Q-Learning tabulaire.",
+      "proj-app-context": "Projet personnel · Android",
+      "proj-app-desc": "Application Android de gestion de commandes conçue, développée et déployée lors d'un marché de Noël bénévole. Historique, export des données et statistiques de ventes.",
+      "contact-label": "Contact",
+      "contact-title": "Travaillons ensemble",
+      "contact-desc": "Je suis actuellement à la recherche d'un premier poste en développement. N'hésitez pas à me contacter.",
+    },
+    en: {
+      "nav-about": "About",
+      "nav-skills": "Skills",
+      "nav-projects": "Projects",
+      "nav-contact": "Contact",
+      "hero-tag": "Junior Developer · Belgium",
+      "hero-subtitle": "Backend · Fullstack · Mobile — Master's graduate in Computer Science from UMONS",
+      "hero-cta-projects": "View my projects",
+      "hero-cta-contact": "Get in touch",
+      "about-label": "About",
+      "stat-projects": "Projects",
+      "stat-years": "Years of study",
+      "stat-award": "Best project Year 1",
+      "stat-thesis": "Thesis pages",
+      "skills-label": "Skills",
+      "skills-title": "Tech Stack",
+      "skill-languages": "Languages",
+      "skill-web": "Web & Backend",
+      "skill-mobile": "Mobile",
+      "skill-concepts": "Concepts",
+      "concept-rl": "Reinforcement learning",
+      "concept-tests": "Unit testing",
+      "concept-review": "Code review",
+      "projects-label": "Projects",
+      "projects-title": "What I've built",
+      "proj-thesis-context": "Research · Master's thesis",
+      "proj-thesis-name": "RL with Formal Guarantees",
+      "proj-thesis-desc": "Master's thesis: translating LTL specifications into reward machines to guide RL agents with formal guarantees. Extended Mungojerrie (C++) with Counterfactual Q-Learning and counterfactual simulation.",
+      "proj-quoridor-context": "Year 1 · Java",
+      "proj-quoridor-badge": "★ Best project",
+      "proj-quoridor-desc": "Full digital implementation of the Quoridor board game: hand-made GUI textures, multi-level AI opponents, save/load system, additional maps and spells.",
+      "proj-cloud-name": "Image Search Service",
+      "proj-cloud-desc": "Image similarity search engine deployed as a SaaS on a Cloud VM. Deep learning models (VGG16, ResNet50, ViT, EfficientNet), containerized with Docker.",
+      "proj-calc-context": "Software Engineering · Team of 4",
+      "proj-calc-desc": "Collaborative evolution of an existing calculator: CI/CD, unit testing, code coverage, GitHub Actions, static analysis, code review and pull requests.",
+      "proj-calc-link": "Watch YouTube demo →",
+      "proj-ml-desc": "Deep RL Actor-Critic agent trained on Acrobot-v1 with grid search hyperparameter tuning. Compared against a tabular Q-Learning baseline.",
+      "proj-app-context": "Personal project · Android",
+      "proj-app-desc": "Android order management app designed, built and deployed at a real volunteer Christmas market event. Daily history, data export and sales analytics.",
+      "contact-label": "Contact",
+      "contact-title": "Let's work together",
+      "contact-desc": "I am currently looking for my first position in software development. Feel free to reach out.",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.body.className = 'lang-' + lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+  }
+
+  // Init
+  setLang('fr');
+</script>
+</body>
+</html>
